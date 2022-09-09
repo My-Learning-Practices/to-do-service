@@ -8,8 +8,8 @@ content-type: application/json
   "taskDeatils": {
     "createdAt": "2022-09-07T10:21:15.000Z",
     "deadline": "2022-09-07T10:21:15.000Z",
-    "priority": "Medium",
-    "taskName": "Test 3"
+    "priority": "High",
+    "taskName": "Test 1"
   }
 }
 
@@ -19,5 +19,5 @@ DELETE http://localhost:3000/
 content-type: application/json
 
 {
-  "id": "631863a909d368525289c42b"
+  "id": "631862291811dd6049fc369a"
 }

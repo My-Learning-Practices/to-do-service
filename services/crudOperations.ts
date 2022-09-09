@@ -14,7 +14,7 @@ const upsertTask = async (task: TaskDetails) => {
         priority: task.priority,
       },
       where: {
-        taskName: task.taskName,
+        id: await findTask(task.taskName),
       },
     });
   } catch (error) {
@@ -32,6 +32,15 @@ const deleteTask = async (taskId: string) => {
     },
   });
 };
+
+const findTask = async (taskName: string) =>
+  await prisma.taskDetails
+    .findFirst({
+      where: {
+        taskName: taskName,
+      },
+    })
+    .then((task) => task?.id);
 
 export default {
   upsertTask,

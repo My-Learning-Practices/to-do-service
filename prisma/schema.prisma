@@ -9,8 +9,8 @@ datasource db {
 
 model TaskDetails {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime
-  deadline  DateTime
+  createdAt DateTime @db.Date
+  deadline  DateTime @db.Date
   priority  String
   taskName  String
 }
