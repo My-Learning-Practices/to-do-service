@@ -22,8 +22,15 @@ const upsertTask = async (task: TaskDetails) => {
   }
 };
 
-const findAllTask = async (priority?: string) =>
-  await prisma.taskDetails.findMany();
+const findAllTask = async (priority: string) => {
+  if (priority.length > 0)
+    return await prisma.taskDetails.findMany({
+      where: {
+        priority: priority,
+      },
+    });
+  else return await prisma.taskDetails.findMany();
+};
 
 const deleteTask = async (taskId: string) => {
   await prisma.taskDetails.delete({

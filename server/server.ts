@@ -13,8 +13,10 @@ app.use(bodyParser.json());
 app
   .route("/")
   .get(async (req: express.Request, res: express.Response) => {
-    console.log("Fetching all tasks");
-    res.send(await crudOperations.findAllTask());
+    const filter = req.query.priority?.toString() || "";
+    console.log(filter);
+
+    res.send(await crudOperations.findAllTask(filter));
   })
   .post((req: express.Request, res: express.Response) => {
     const taskDeatils = req.body.taskDeatils;
@@ -23,13 +25,6 @@ app
   .delete(async (req: express.Request, res: express.Response) => {
     const taskId = req.body.id;
     await crudOperations.deleteTask(taskId);
-  });
-
-app
-  .route("/:priority")
-  .get(async (req: express.Request, res: express.Response) => {
-    const param = req.params.priority;
-    res.send(await crudOperations.findAllTask(param));
   });
 
 app.listen(3000, () => {
