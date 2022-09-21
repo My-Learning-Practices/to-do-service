@@ -20,7 +20,7 @@ app
   })
   .post((req: express.Request, res: express.Response) => {
     const taskDeatils = req.body.taskDeatils;
-    crudOperations.upsertTask(taskDeatils);
+    crudOperations.createTask(taskDeatils);
   })
   .delete(async (req: express.Request, res: express.Response) => {
     const taskId = req.body.id;

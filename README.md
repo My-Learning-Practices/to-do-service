@@ -12,9 +12,9 @@
 
 Before running the project make sure to run the following commands
 
-- yarn
-- npx prisma init
-- npx db pull
+- `yarn`
+- `npx prisma init`
+- `npx db pull`
 
 ---
 

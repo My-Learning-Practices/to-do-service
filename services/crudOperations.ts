@@ -1,20 +1,37 @@
 import { PrismaClient, TaskDetails } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const upsertTask = async (task: TaskDetails) => {
+const createTask = async (task: TaskDetails) => {
+  if (findTask(task.taskName) !== undefined)
+    updatedtask(task); // If task with same name exist just update it
+  else {
+    try {
+      await prisma.taskDetails.create({
+        data: {
+          ...task,
+          // taskName: task.taskName,
+          // createdAt: task.createdAt,
+          // deadline: task.deadline,
+          // priority: task.priority,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+const updatedtask = async (task: TaskDetails) => {
   try {
-    await prisma.taskDetails.upsert({
-      create: {
-        ...task,
-      },
-      update: {
+    await prisma.taskDetails.update({
+      data: {
         taskName: task.taskName,
         createdAt: task.createdAt,
         deadline: task.deadline,
         priority: task.priority,
       },
       where: {
-        id: await findTask(task.taskName),
+        id: task.id,
       },
     });
   } catch (error) {
@@ -50,7 +67,7 @@ const findTask = async (taskName: string) =>
     .then((task) => task?.id);
 
 export default {
-  upsertTask,
+  createTask,
   findAllTask,
   deleteTask,
 };
